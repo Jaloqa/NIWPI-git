@@ -23,6 +23,7 @@ This project follows a **layered architecture** with clear separation of concern
 - Can be easily replaced with different UIs (CLI, GUI, Web API)
 - **Files:**
   - `cli.py`: Command-line interface implementation
+  - `gui.py`: Graphical user interface (tkinter-based)
 
 ## Design Patterns Used
 
@@ -37,7 +38,8 @@ This project follows a **layered architecture** with clear separation of concern
 NIWPI-git/
 ├── src/
 │   ├── __init__.py
-│   ├── main.py                 # Application entry point
+│   ├── main.py                 # Application entry point (CLI/GUI)
+│   ├── main_gui.py             # GUI-specific entry point
 │   ├── domain/                 # Core business logic
 │   │   ├── __init__.py
 │   │   └── operations.py
@@ -46,11 +48,13 @@ NIWPI-git/
 │   │   └── calculator_service.py
 │   └── presentation/           # User interface
 │       ├── __init__.py
-│       └── cli.py
+│       ├── cli.py              # Command-line interface
+│       └── gui.py              # Graphical interface
 ├── tests/                      # Unit tests
 │   ├── __init__.py
 │   ├── test_operations.py
-│   └── test_calculator_service.py
+│   ├── test_calculator_service.py
+│   └── test_gui.py
 └── README.md
 ```
 
@@ -61,7 +65,12 @@ NIWPI-git/
 - ✅ Division by zero protection
 - ✅ Extensible architecture (easy to add new operations)
 - ✅ Comprehensive unit tests
-- ✅ Interactive CLI
+- ✅ **Interactive CLI**
+- ✅ **Modern GUI with tkinter**
+- ✅ Keyboard support in GUI (numbers, operators, Enter, Escape, Backspace)
+- ✅ Chain operations support
+- ✅ Sign change (±) functionality
+- ✅ Visual feedback and error handling
 
 ## Installation
 
@@ -81,13 +90,21 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 ### Running the Calculator
 
-From the project root directory:
-
+**CLI Mode (default):**
 ```bash
 python -m src.main
+# or
+python src/main.py
 ```
 
-### Example Session
+**GUI Mode:**
+```bash
+python -m src.main --gui
+# or
+python src/main_gui.py
+```
+
+### CLI Example Session
 
 ```
 ==================================================
@@ -110,6 +127,26 @@ Enter calculation (e.g., 5 + 3): quit
 Thank you for using the calculator. Goodbye!
 ```
 
+### GUI Features
+
+The GUI calculator provides:
+
+- **Visual Calculator Interface**: Clean, modern design with color-coded buttons
+- **Button Layout**:
+  - Number pad (0-9)
+  - Decimal point (.)
+  - Operators (+, -, *, /)
+  - Special functions (C=Clear, ⌫=Backspace, ±=Sign change)
+  - Equals (=) for results
+- **Keyboard Support**:
+  - Type numbers and operators directly
+  - Enter key for equals
+  - Escape key for clear
+  - Backspace for deletion
+- **Chain Operations**: Continue calculating without clearing
+- **Error Handling**: User-friendly error messages
+- **Responsive Layout**: Buttons adapt to clicks with visual feedback
+
 ## Running Tests
 
 Run all tests:
@@ -121,6 +158,7 @@ Run specific test file:
 ```bash
 python -m unittest tests.test_operations
 python -m unittest tests.test_calculator_service
+python -m unittest tests.test_gui
 ```
 
 ## Extending the Calculator
