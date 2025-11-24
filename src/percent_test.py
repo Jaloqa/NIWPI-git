@@ -19,3 +19,13 @@ def podwyzka_procentowa():
     wynik = liczba * (1 + procent / 100)
 
     print(f"Po podwyżce o {procent}%: {wynik}")
+
+
+
+def obnizka_procentowa():
+    liczba = float(input("Podaj liczbę: "))
+    procent = float(input("Podaj procent obniżki: "))
+
+    wynik = liczba * (1 - procent / 100)
+
+    print(f"Po obniżce o {procent}%: {wynik}")
