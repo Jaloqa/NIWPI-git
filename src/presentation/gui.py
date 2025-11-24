@@ -38,6 +38,7 @@ class CalculatorGUI:
         self.first_operand: Optional[float] = None
         self.current_operator: Optional[str] = None
         self.reset_display = False
+        self.show_expression = False  # Flag to show full expression
         
         # Configure style
         self._configure_style()
@@ -193,6 +194,7 @@ class CalculatorGUI:
         if self.reset_display:
             self.current_input = digit
             self.reset_display = False
+            self.show_expression = False
         else:
             if self.current_input == "0":
                 self.current_input = digit
@@ -205,6 +207,7 @@ class CalculatorGUI:
         if self.reset_display:
             self.current_input = "0."
             self.reset_display = False
+            self.show_expression = False
         elif '.' not in self.current_input:
             if not self.current_input:
                 self.current_input = "0."
@@ -226,12 +229,15 @@ class CalculatorGUI:
                 )
                 self.first_operand = result
                 self.current_input = str(result)
-                self._update_display()
             else:
                 self.first_operand = current_value
             
             self.current_operator = operator
             self.reset_display = True
+            self.show_expression = True
+            
+            # Show the expression in display
+            self._update_display_with_operator()
     
     def _handle_equals(self):
         """Handle equals button press."""
@@ -249,12 +255,13 @@ class CalculatorGUI:
                     result = int(result)
                 
                 self.current_input = str(result)
-                self._update_display()
                 
                 # Reset for next calculation
                 self.first_operand = None
                 self.current_operator = None
                 self.reset_display = True
+                self.show_expression = False
+                self._update_display()
                 
             except ValueError as e:
                 messagebox.showerror("Error", str(e))
@@ -266,6 +273,7 @@ class CalculatorGUI:
         self.first_operand = None
         self.current_operator = None
         self.reset_display = False
+        self.show_expression = False
         self.display_var.set("0")
     
     def _handle_backspace(self):
@@ -287,6 +295,10 @@ class CalculatorGUI:
     
     def _update_display(self):
         """Update the display with the current input."""
+        if self.show_expression and self.first_operand is not None and self.current_operator:
+            # Don't update if we're showing the expression
+            return
+            
         display_text = self.current_input if self.current_input else "0"
         
         # Limit display length
@@ -295,6 +307,16 @@ class CalculatorGUI:
             self.current_input = display_text
         
         self.display_var.set(display_text)
+    
+    def _update_display_with_operator(self):
+        """Update display to show the expression with operator."""
+        if self.first_operand is not None and self.current_operator:
+            # Format the first operand
+            first_op_str = str(int(self.first_operand) if isinstance(self.first_operand, float) and self.first_operand.is_integer() else self.first_operand)
+            
+            # Show expression like "5 +"
+            expression = f"{first_op_str} {self.current_operator}"
+            self.display_var.set(expression)
     
     @staticmethod
     def _parse_number(value: str) -> float:
