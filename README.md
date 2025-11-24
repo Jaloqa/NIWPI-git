@@ -60,6 +60,8 @@ NIWPI-git/
 ## Features
 
 - ✅ Basic arithmetic operations (+, -, *, /)
+- ✅ Exponentiation (^) and root extraction (root)
+- ✅ Trigonometry in degrees (sin, cos, tan)
 - ✅ Support for integers and floating-point numbers
 - ✅ Division by zero protection
 - ✅ Extensible architecture (easy to add new operations)
@@ -96,7 +98,9 @@ python -m src.main
 ==================================================
 Simple Calculator
 ==================================================
-Supported operators: +, -, *, /
+Supported operators: +, -, *, /, ^, root, sin, cos, tan
+Use 'root' for nth root (e.g., 9 root 2) and '^' for power (e.g., 2 ^ 3)
+Use 'sin', 'cos', 'tan' for trigonometry (angles in degrees), e.g., sin 30
 Type 'quit' or 'exit' to exit the calculator
 ==================================================
 
@@ -108,6 +112,18 @@ Result: 5.0
 
 Enter calculation (e.g., 5 + 3): 7.5 * 2
 Result: 15.0
+
+Enter calculation (e.g., 5 + 3): 2 ^ 4
+Result: 16
+
+Enter calculation (e.g., 5 + 3): 81 root 4
+Result: 3.0
+
+Enter calculation (e.g., 5 + 3): sin 30
+Result: 0.5
+
+Enter calculation (e.g., 5 + 3): cos 60
+Result: 0.5
 
 Enter calculation (e.g., 5 + 3): quit
 Thank you for using the calculator. Goodbye!

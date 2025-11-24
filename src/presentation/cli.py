@@ -18,6 +18,7 @@ class CalculatorCLI:
             calculator_service: The calculator service to use
         """
         self.calculator_service = calculator_service
+        self._unary_operators = {'sin', 'cos', 'tan'}
     
     def run(self) -> None:
         """Run the calculator CLI in interactive mode."""
@@ -26,6 +27,7 @@ class CalculatorCLI:
         print("=" * 50)
         print(f"Supported operators: {', '.join(self.calculator_service.get_supported_operators())}")
         print("Use 'root' for nth root (e.g., 9 root 2) and '^' for power (e.g., 2 ^ 3)")
+        print("Use 'sin', 'cos', 'tan' for trigonometry (angles in degrees), e.g., sin 30")
         print("Type 'quit' or 'exit' to exit the calculator")
         print("=" * 50)
         
@@ -59,18 +61,30 @@ class CalculatorCLI:
         """
         parts = user_input.split()
         
-        if len(parts) != 3:
-            print("Invalid input format. Please use format: number operator number")
-            print("Example: 5 + 3 or 9 root 2")
-            return None
-        
         try:
-            a = self._parse_number(parts[0])
-            operator = parts[1]
-            b = self._parse_number(parts[2])
-            
+            if len(parts) == 2:
+                first, second = parts[0].lower(), parts[1].lower()
+                if first in self._unary_operators:
+                    operator = first
+                    a = self._parse_number(parts[1])
+                    b = 0
+                elif second in self._unary_operators:
+                    operator = second
+                    a = self._parse_number(parts[0])
+                    b = 0
+                else:
+                    print("Invalid input format. Examples: sin 30 | cos 45 | 5 + 3 | 9 root 2")
+                    return None
+            elif len(parts) == 3:
+                a = self._parse_number(parts[0])
+                operator = parts[1].lower()
+                b = self._parse_number(parts[2])
+            else:
+                print("Invalid input format. Examples: sin 30 | cos 45 | 5 + 3 | 9 root 2")
+                return None
+
             return self.calculator_service.calculate(a, operator, b)
-            
+
         except ValueError as e:
             print(f"Invalid input: {e}")
             return None

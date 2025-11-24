@@ -8,7 +8,17 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 import unittest
-from src.domain.operations import Addition, Subtraction, Multiplication, Division, Power, Root
+from src.domain.operations import (
+    Addition,
+    Subtraction,
+    Multiplication,
+    Division,
+    Power,
+    Root,
+    Sine,
+    Cosine,
+    Tangent,
+)
 
 
 class TestAddition(unittest.TestCase):
@@ -160,6 +170,56 @@ class TestRoot(unittest.TestCase):
 
     def test_symbol(self):
         self.assertEqual(self.operation.symbol(), "root")
+
+
+class TestSine(unittest.TestCase):
+    """Test cases for Sine operation."""
+
+    def setUp(self):
+        self.operation = Sine()
+
+    def test_sine_zero(self):
+        self.assertEqual(self.operation.execute(0, 0), 0)
+
+    def test_sine_thirty(self):
+        self.assertAlmostEqual(self.operation.execute(30, 0), 0.5, places=6)
+
+    def test_symbol(self):
+        self.assertEqual(self.operation.symbol(), "sin")
+
+
+class TestCosine(unittest.TestCase):
+    """Test cases for Cosine operation."""
+
+    def setUp(self):
+        self.operation = Cosine()
+
+    def test_cosine_zero(self):
+        self.assertEqual(self.operation.execute(0, 0), 1)
+
+    def test_cosine_sixty(self):
+        self.assertAlmostEqual(self.operation.execute(60, 0), 0.5, places=6)
+
+    def test_symbol(self):
+        self.assertEqual(self.operation.symbol(), "cos")
+
+
+class TestTangent(unittest.TestCase):
+    """Test cases for Tangent operation."""
+
+    def setUp(self):
+        self.operation = Tangent()
+
+    def test_tangent_forty_five(self):
+        self.assertAlmostEqual(self.operation.execute(45, 0), 1.0, places=6)
+
+    def test_tangent_undefined(self):
+        with self.assertRaises(ValueError) as context:
+            self.operation.execute(90, 0)
+        self.assertIn("Tangent is undefined", str(context.exception))
+
+    def test_symbol(self):
+        self.assertEqual(self.operation.symbol(), "tan")
 
 
 if __name__ == '__main__':

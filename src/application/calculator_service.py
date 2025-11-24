@@ -12,6 +12,9 @@ from src.domain.operations import (
     Division,
     Power,
     Root,
+    Sine,
+    Cosine,
+    Tangent,
 )
 
 
@@ -27,6 +30,9 @@ class CalculatorService:
             '/': Division(),
             '^': Power(),
             'root': Root(),
+            'sin': Sine(),
+            'cos': Cosine(),
+            'tan': Tangent(),
         }
     
     def calculate(self, a: Union[int, float], operator: str, b: Union[int, float]) -> Union[int, float]:

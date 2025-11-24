@@ -44,6 +44,18 @@ class TestCalculatorService(unittest.TestCase):
         result = self.service.calculate(6, '/', 3)
         self.assertEqual(result, 2)
 
+    def test_calculate_sine(self):
+        result = self.service.calculate(30, 'sin', 0)
+        self.assertAlmostEqual(result, 0.5, places=6)
+
+    def test_calculate_cosine(self):
+        result = self.service.calculate(60, 'cos', 0)
+        self.assertAlmostEqual(result, 0.5, places=6)
+
+    def test_calculate_tangent(self):
+        result = self.service.calculate(45, 'tan', 0)
+        self.assertAlmostEqual(result, 1.0, places=6)
+
     def test_calculate_power(self):
         result = self.service.calculate(2, '^', 3)
         self.assertEqual(result, 8)
@@ -64,7 +76,7 @@ class TestCalculatorService(unittest.TestCase):
     
     def test_get_supported_operators(self):
         operators = self.service.get_supported_operators()
-        self.assertEqual(set(operators), {'+', '-', '*', '/', '^', 'root'})
+        self.assertEqual(set(operators), {'+', '-', '*', '/', '^', 'root', 'sin', 'cos', 'tan'})
     
     def test_add_custom_operation(self):
         # Test extensibility by adding a new operation
