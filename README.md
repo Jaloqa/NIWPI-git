@@ -1,4 +1,4 @@
-# Simple Calculator
+## Simple Calculator
 
 A well-architected calculator application built with Python following clean architecture principles and SOLID design patterns.
 
