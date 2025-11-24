@@ -82,56 +82,54 @@ class CalculatorGUI:
         button_frame = tk.Frame(self.window, bg='#2C3E50', padx=20, pady=10)
         button_frame.pack(fill=tk.BOTH, expand=True)
         
-        # Button layout
-        buttons = [
-            ['C', '⌫', '±', '/'],
-            ['7', '8', '9', '*'],
-            ['4', '5', '6', '-'],
-            ['1', '2', '3', '+'],
-            ['0', '.', '=', '']
+        # Define buttons with their positions (row, col, colspan, text)
+        button_definitions = [
+            # Row 0
+            (0, 0, 1, 'C'), (0, 1, 1, '⌫'), (0, 2, 1, '±'), (0, 3, 1, '/'),
+            # Row 1
+            (1, 0, 1, '7'), (1, 1, 1, '8'), (1, 2, 1, '9'), (1, 3, 1, '*'),
+            # Row 2
+            (2, 0, 1, '4'), (2, 1, 1, '5'), (2, 2, 1, '6'), (2, 3, 1, '-'),
+            # Row 3
+            (3, 0, 1, '1'), (3, 1, 1, '2'), (3, 2, 1, '3'), (3, 3, 1, '+'),
+            # Row 4 - 0 button spans 2 columns
+            (4, 0, 2, '0'), (4, 2, 1, '.'), (4, 3, 1, '='),
         ]
         
-        for row_idx, row in enumerate(buttons):
-            for col_idx, button_text in enumerate(row):
-                if button_text == '':
-                    continue
-                    
-                # Determine button color
-                if button_text in ['C', '⌫', '±']:
-                    bg_color = '#E74C3C'  # Red for special operations
-                    fg_color = '#FFFFFF'
-                elif button_text in ['+', '-', '*', '/', '=']:
-                    bg_color = '#3498DB'  # Blue for operators
-                    fg_color = '#FFFFFF'
-                else:
-                    bg_color = '#95A5A6'  # Gray for numbers
-                    fg_color = '#2C3E50'
-                
-                # Special width for 0 button
-                colspan = 2 if button_text == '0' else 1
-                
-                btn = tk.Button(
-                    button_frame,
-                    text=button_text,
-                    font=('Arial', 18, 'bold'),
-                    bg=bg_color,
-                    fg=fg_color,
-                    activebackground=self._darken_color(bg_color),
-                    activeforeground=fg_color,
-                    relief=tk.RAISED,
-                    bd=3,
-                    command=lambda text=button_text: self._on_button_click(text)
-                )
-                
-                btn.grid(
-                    row=row_idx,
-                    column=col_idx,
-                    columnspan=colspan,
-                    sticky='nsew',
-                    padx=3,
-                    pady=3
-                )
-                
+        for row, col, colspan, button_text in button_definitions:
+            # Determine button color
+            if button_text in ['C', '⌫', '±']:
+                bg_color = '#E74C3C'  # Red for special operations
+                fg_color = '#FFFFFF'
+            elif button_text in ['+', '-', '*', '/', '=']:
+                bg_color = '#3498DB'  # Blue for operators
+                fg_color = '#FFFFFF'
+            else:
+                bg_color = '#95A5A6'  # Gray for numbers
+                fg_color = '#2C3E50'
+            
+            btn = tk.Button(
+                button_frame,
+                text=button_text,
+                font=('Arial', 18, 'bold'),
+                bg=bg_color,
+                fg=fg_color,
+                activebackground=self._darken_color(bg_color),
+                activeforeground=fg_color,
+                relief=tk.RAISED,
+                bd=3,
+                command=lambda text=button_text: self._on_button_click(text)
+            )
+            
+            btn.grid(
+                row=row,
+                column=col,
+                columnspan=colspan,
+                sticky='nsew',
+                padx=3,
+                pady=3
+            )
+        
         # Configure grid weights for responsive layout
         for i in range(5):
             button_frame.grid_rowconfigure(i, weight=1)
