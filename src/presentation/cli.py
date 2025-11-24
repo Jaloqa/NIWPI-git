@@ -25,6 +25,7 @@ class CalculatorCLI:
         print("Simple Calculator")
         print("=" * 50)
         print(f"Supported operators: {', '.join(self.calculator_service.get_supported_operators())}")
+        print("Use 'root' for nth root (e.g., 9 root 2) and '^' for power (e.g., 2 ^ 3)")
         print("Type 'quit' or 'exit' to exit the calculator")
         print("=" * 50)
         
@@ -60,7 +61,7 @@ class CalculatorCLI:
         
         if len(parts) != 3:
             print("Invalid input format. Please use format: number operator number")
-            print("Example: 5 + 3")
+            print("Example: 5 + 3 or 9 root 2")
             return None
         
         try:

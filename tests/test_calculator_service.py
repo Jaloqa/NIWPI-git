@@ -43,6 +43,14 @@ class TestCalculatorService(unittest.TestCase):
     def test_calculate_division(self):
         result = self.service.calculate(6, '/', 3)
         self.assertEqual(result, 2)
+
+    def test_calculate_power(self):
+        result = self.service.calculate(2, '^', 3)
+        self.assertEqual(result, 8)
+
+    def test_calculate_root(self):
+        result = self.service.calculate(9, 'root', 2)
+        self.assertEqual(result, 3.0)
     
     def test_calculate_division_by_zero(self):
         with self.assertRaises(ValueError) as context:
@@ -56,7 +64,7 @@ class TestCalculatorService(unittest.TestCase):
     
     def test_get_supported_operators(self):
         operators = self.service.get_supported_operators()
-        self.assertEqual(set(operators), {'+', '-', '*', '/'})
+        self.assertEqual(set(operators), {'+', '-', '*', '/', '^', 'root'})
     
     def test_add_custom_operation(self):
         # Test extensibility by adding a new operation

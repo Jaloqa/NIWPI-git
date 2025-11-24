@@ -61,3 +61,27 @@ class Division(Operation):
     
     def symbol(self) -> str:
         return "/"
+
+
+class Power(Operation):
+    """Exponentiation operation."""
+
+    def execute(self, a: Union[int, float], b: Union[int, float]) -> Union[int, float]:
+        return a ** b
+
+    def symbol(self) -> str:
+        return "^"
+
+
+class Root(Operation):
+    """Root extraction operation (nth root)."""
+
+    def execute(self, a: Union[int, float], b: Union[int, float]) -> Union[int, float]:
+        if b == 0:
+            raise ValueError("Root degree cannot be zero")
+        if a < 0:
+            raise ValueError("Cannot extract root of negative number")
+        return a ** (1 / b)
+
+    def symbol(self) -> str:
+        return "root"

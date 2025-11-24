@@ -4,7 +4,15 @@ This layer contains the use cases and business workflows.
 """
 
 from typing import Dict, Union
-from src.domain.operations import Operation, Addition, Subtraction, Multiplication, Division
+from src.domain.operations import (
+    Operation,
+    Addition,
+    Subtraction,
+    Multiplication,
+    Division,
+    Power,
+    Root,
+)
 
 
 class CalculatorService:
@@ -17,6 +25,8 @@ class CalculatorService:
             '-': Subtraction(),
             '*': Multiplication(),
             '/': Division(),
+            '^': Power(),
+            'root': Root(),
         }
     
     def calculate(self, a: Union[int, float], operator: str, b: Union[int, float]) -> Union[int, float]:
