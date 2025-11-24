@@ -25,7 +25,7 @@ class Addition(Operation):
     """Addition operation."""
     
     def execute(self, a: Union[int, float], b: Union[int, float]) -> Union[int, float]:
-        return a - b
+        return a + b  # tu była zmianka na minusika
     
     def symbol(self) -> str:
         return "+"
