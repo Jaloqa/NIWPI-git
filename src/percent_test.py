@@ -7,3 +7,5 @@ def procent_z_liczby():
     print(f"{procent}% z {liczba} = {wynik}")
 
 procent_z_liczby()
+if __name__ == "__main__":
+    procent_z_liczby()
